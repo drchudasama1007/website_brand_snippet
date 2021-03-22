@@ -1,0 +1,20 @@
+.owl-carousel .owl-item .owl-lazy {
+    opacity: 1 !important;
+    transition: opacity .4s ease;
+}
+
+.owl-prev{
+    position: absolute;
+    top: 50%;
+    left: -15px;
+    transform: translateY(-50%);
+}
+.owl-next{
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+}
+.fa-angle-left, .fa-angle-right{
+    font-size: 1.875rem;
+}

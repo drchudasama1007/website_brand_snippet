@@ -1,0 +1,177 @@
+<odoo>
+
+
+    <template id="custom_snippets" inherit_id="website.snippets">
+        <xpath expr="//div[@id='snippet_structure']/div[hasclass('o_panel_body')]" position="after">
+            <div class="o_panel_header">
+                Brand Snippet
+            </div>
+            <div class="o_panel_body">
+                <!--================== BRAND SNIPPET===================-->
+                <t t-snippet="website_brand_snippet.brand_slider"
+                   t-thumbnail="/website_brand_snippet/static/src/img/product_carousel.jpg"/>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="brand_slider_container" name="Brand Slider Container">
+        <section class="brand_slider_content">
+           <t t-call="website_brand_snippet.brand_slider"/>
+        </section>
+    </template>
+
+    <template id="brand_slider" name="Brand">
+        <div class="oe_structure"/>
+        <section class="te_brand_slider pt32 pb32" style="display:none">
+            <div class="container">
+                <t t-set="brands" t-value="request.env['website'].sudo().get_brand()"/>
+                <div class="owl-slider">
+                    <div class="owl-carousel brand_carousel">
+                        <t t-foreach="brands" t-as="brand">
+                            <div class="item te_brand_img">
+<!--                                <t t-if="brand.is_brand_page">-->
+<!--                                    <t t-set="page_url" t-value="brand.brand_page.url"/>-->
+<!--                                </t>-->
+<!--                                <t t-else="">-->
+                                    <t t-set="page_url" t-value="'/brand/%s'%brand.id"/>
+<!--                                </t>-->
+                                <a t-att-href="page_url" t-att-title="brand.name">
+<!--                                    <img class="owl-lazy" t-if="brand.logo"-->
+<!--                                         t-att-data-src="'data:image/png;base64,%s' % to_text(request.env['website'].sudo().image_resize(brand.logo,120,120))"-->
+<!--                                         src=""/>-->
+                                    <img class="owl-lazy" t-att-src="'data:image/png;base64,%s' % to_text(brand.logo)"
+                                         alt=""/>
+                                </a>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="products_ept" inherit_id="website_sale.products" priority="15">
+        <xpath expr="//tr[@t-ignore='true']" position="replace"></xpath>
+<!--        <xpath expr="//div[hasclass('products_pager')][2]" position="attributes">-->
+<!--            <attribute name="class">products_pager form-inline mt-3 mb-3-->
+<!--				te_shop_pager-->
+<!--			</attribute>-->
+<!--        </xpath>-->
+<!--        <xpath expr="//div[@id='products_grid_before']" position="inside">-->
+<!--            <div class="te_close te_filter_close">-->
+<!--                <span>x</span>-->
+<!--            </div>-->
+<!--        </xpath>-->
+<!--        <xpath-->
+<!--			expr="//div[hasclass('products_pager')][1]/t[@t-call='website_sale.pricelist_list']"-->
+<!--			position="replace"></xpath>-->
+<!--        <xpath expr="//div[hasclass('products_pager')][1]" position="attributes">-->
+<!--            <attribute name="class">products_pager form-inline te_shop_pager-->
+<!--				te_shop_pager_top-->
+<!--			</attribute>-->
+<!--        </xpath>-->
+<!--        <xpath expr="//div[hasclass('products_pager')][1]" position="inside">-->
+<!--            <div class="te_view_all_filter_div">-->
+<!--                <span class="te_view_filter_span">Filters</span>-->
+<!--                <div class="te_view_all_filter_inner"></div>-->
+<!--            </div>-->
+<!--        </xpath>-->
+<!--         <xpath expr="//div[hasclass('products_pager')][1]" position="inside">-->
+<!--			<div class="te_quick_filter_main_div"><a class="te_quick_filter_dropdown btn te_sort_btn" href="#">Quick Filter</a></div>-->
+<!--		</xpath>-->
+<!--        <xpath expr="//div[hasclass('products_pager')][1]" position="after">-->
+<!--            <div class="te_shop_filter_resp">-->
+<!--                <i class="fa fa-align-left"></i>-->
+<!--				Categories-->
+
+<!--            </div>-->
+<!--        </xpath>-->
+<!--        <xpath expr="//div[hasclass('py-2')]" position="before">-->
+<!--            <t t-if="not category or category and not category.content">-->
+<!--                <div class="oe_structure">-->
+<!--                    <section class="te_shop_before_h_section oe_img_bg oe_custom_bg"-->
+<!--						style="background-image: url(&quot;/theme_clarico/static/src/img/shop/1920_110.jpg&quot;);">-->
+<!--                        <h2>Shop</h2>-->
+<!--                    </section>-->
+<!--                </div>-->
+<!--            </t>-->
+<!--            &lt;!&ndash; Category Wise Landing Page &ndash;&gt;-->
+<!--            <section>-->
+<!--                <div class="te_shop_ctg_desc_main">-->
+<!--                    <t t-foreach="category" t-as="pc_id">-->
+<!--                        <div t-field="pc_id.content">-->
+<!--                            <div class="oe_structure ctg_oe_structure" /></div>-->
+<!--                    </t>-->
+<!--                </div>-->
+<!--            </section>-->
+<!--            <div t-if="category" class="te_shop_breadcrumb">-->
+<!--                <t t-set="categ_value" t-value="website.get_product_categs_path(category.id)" />-->
+<!--                <t t-set="categ" t-value="categ_value.get('categ_set',False)" />-->
+<!--                <t t-set="web_url" t-value="categ_value.get('web_url',False)" />-->
+<!--                <ol class="breadcrumb">-->
+<!--                    <div class="container">-->
+<!--                        <li class="breadcrumb-item">-->
+<!--                            <a href="/shop">-->
+<!--                                <i class="fa fa-home"></i>-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                        <t t-if="categ">-->
+<!--                            <t t-foreach="categ" t-as="c">-->
+<!--                                <t t-set="rec"-->
+<!--									t-value="request.env['product.public.category'].sudo().search([('id', '=', c)])" />-->
+<!--                                <li class="breadcrumb-item">-->
+<!--                                    <a t-att-href="'/shop/category/%s' %slug(rec)">-->
+<!--                                        <span class="product_catg_breadcrumb" t-esc="rec.name"></span>-->
+<!--                                    </a>-->
+<!--                                </li>-->
+<!--                            </t>-->
+<!--                        </t>-->
+<!--                    </div>-->
+<!--                </ol>-->
+<!--            </div>-->
+<!--        </xpath>-->
+<!--        <xpath expr="//tr[@t-foreach='bins']" position="replace">-->
+<!--            <tr>-->
+<!--                <t t-foreach="bins" t-as="tr_product">-->
+<!--                    <t t-foreach="tr_product" t-as="td_product">-->
+<!--                        <t t-if="td_product">-->
+<!--                            <t t-set="product" t-value="td_product['product']" />-->
+<!--                            <td t-attf-class="oe_product oe_grid te_t_image">-->
+<!--                                <div class="oe_product_cart" t-att-data-publish="product.website_published and 'on' or 'off'">-->
+<!--                                    <t t-set="product_image_big" t-value="td_product['x']+td_product['y'] &gt; 2" />-->
+<!--                                    <t t-call="website_sale.products_item" />-->
+<!--                                </div>-->
+<!--                            </td>-->
+<!--                        </t>-->
+<!--                        <td t-if="not td_product" class="oe-height-2" />-->
+<!--                    </t>-->
+<!--                </t>-->
+<!--            </tr>-->
+<!--        </xpath>-->
+<!--        <xpath expr="//t[@t-if='not bins']" position="replace">-->
+<!--            <t t-if="not bins">-->
+<!--                <div class="text-center text-muted oe_product te_no_products">-->
+<!--                    <h3 class="css_editable_display mt8">No product defined.</h3>-->
+<!--                    <t t-if="search">-->
+<!--                        <p>-->
+<!--							No results found for "-->
+
+<!--                            <strong t-esc='search' />-->
+<!--							".-->
+
+<!--                        </p>-->
+<!--                    </t>-->
+<!--                    <p class="te_extra_text" groups="sales_team.group_sale_manager">-->
+<!--						Click-->
+
+<!--                        <i>'New'</i>-->
+<!--						in the top-right corner to create your first product.-->
+
+<!--                    </p>-->
+<!--                    <a class="btn btn-primary mt16" href="/shop">Continue To Shop</a>-->
+<!--                </div>-->
+<!--            </t>-->
+<!--        </xpath>-->
+    </template>
+
+</odoo>

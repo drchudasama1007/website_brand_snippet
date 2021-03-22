@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- Assets: scss, css, js -->
+  <template id="assets_front" inherit_id="web.assets_frontend">
+    <xpath expr="." position="inside">
+      <link href="/website_brand_snippet/static/src/css/owl.carousel.min.css" rel="stylesheet"/>
+      <link href="/website_brand_snippet/static/src/css/style.css" rel="stylesheet"/>
+        <script type="text/javascript" src="/website_brand_snippet/static/src/js/owl.carousel.js"></script>
+        <script type="text/javascript" src="/website_brand_snippet/static/src/js/brand_slider.js"></script>
+    </xpath>
+  </template>
+</odoo>
